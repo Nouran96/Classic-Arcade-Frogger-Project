@@ -6,7 +6,7 @@ var Enemy = function () {
     var startPos = [60, 143, 226];
     this.y = startPos[Math.floor(Math.random() * 3)];
     this.speed = (Math.random() * 10) + 2;
-    this.x = -101;
+    this.x = -90;
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -17,12 +17,27 @@ Enemy.prototype.update = function (dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += this.speed;
-    checkCollisions();
+    this.checkCollisions();
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+// Checks collision between enemy and player
+Enemy.prototype.checkCollisions = function () {
+    allEnemies.forEach(function (enemy) {
+
+        // checks the collision is in the center of the player
+        if (player.x > enemy.x && player.x < (enemy.x + 50.5)) {
+
+            // 18.5 is the difference between the player and enemy y-position
+            if (player.y === enemy.y - 18.5) {
+                resetGame();
+            }
+        }
+    });
 };
 
 // Player class
@@ -89,7 +104,7 @@ function resetGame() {
     player.y = 373.5;
     allEnemies = [];
     clearInterval(timing);
-    timing = setInterval(newEnemies, 1000);
+    timing = setInterval(newEnemies, 500);
 }
 
 // Instantiate new enemies and adding them to allEnemies array
@@ -105,29 +120,13 @@ function newEnemies() {
     });
 }
 
-// Function that checks collision between enemy and player
-function checkCollisions() {
-    allEnemies.forEach(function (enemy) {
-
-        // checks the collision is in the center of the player
-        if (player.x > enemy.x && player.x < (enemy.x + 50.5)) {
-
-            // 18.5 is the difference between the player and enemy y-position
-            if (player.y === enemy.y - 18.5) {
-                resetGame();
-            }
-        }
-    });
-
-}
-
 // Instantiate new player object
 var player = new Player(202, 373.5);
 
 var allEnemies = [];
 
-// Add new enemy every second
-var timing = setInterval(newEnemies, 1000);
+// Add new enemy every 400 milliseconds
+var timing = setInterval(newEnemies, 500);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
