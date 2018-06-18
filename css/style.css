@@ -1,3 +1,57 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     text-align: center;
+    font-family: sans-serif;
+}
+
+canvas {
+    visibility: hidden;
+}
+
+.container {
+    width: 505px;
+    height: 606px;
+    margin: auto;
+    position: relative;
+}
+
+.startPage {
+    position: absolute;
+    max-width: 505px;
+    min-height: 606px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    background: linear-gradient(#466884, #8BC34A 85%);
+}
+
+.startPage h1 {
+    color: white;
+    font-style: italic;
+}
+
+.startPage .characters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.startPage .characters img {
+    margin: 1% 6% 0;
+    width: 21%;
+}
+
+.startPage .characters img:nth-child(4) {
+    margin-left: 21.5%;
+}
+
+.startPage .characters img:hover {
+    cursor: pointer;
+    border-radius: 65px 65px 0px 0px;
+    border: 2px solid white;
 }

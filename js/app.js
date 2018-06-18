@@ -114,9 +114,27 @@ function newEnemies() {
 }
 
 // Instantiate new player object
-var player = new Player(202, 373.5);
+var player = new Player(202, 373.5),
+    allEnemies = [],
+    // All images elements on start page
+    characters = document.querySelectorAll('.characters img'),
+    startPage = document.querySelector('.startPage'),
+    charsArr = [];
 
-var allEnemies = [];
+// Adding each character image to the array
+for(let char of characters) {
+    charsArr.push(char);
+}
+
+charsArr.forEach(function (char) {
+    char.addEventListener('click',function () {
+        // Get the source of the image clicked
+        var src = char.attributes['src'].value;
+        player.sprite = src;
+        canvas.style.visibility = 'visible';
+        startPage.style.visibility = 'hidden';
+    })
+});
 
 // Add new enemy every 400 milliseconds
 var timing = setInterval(newEnemies, 500);
