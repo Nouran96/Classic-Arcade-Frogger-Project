@@ -3,7 +3,7 @@ This is a classic Frogger-like game with a player and enemies and everything.
 
 ## _Installing_
 Do the following steps:
-1. Download the zipped folder
+1. Download the zipped folder (Or you can clone the repo and skip step 2)
 2. Unzip it
 3. Open the index.html file in your browser
 4. Choose the character you want to play with
