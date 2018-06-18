@@ -29,8 +29,9 @@ Enemy.prototype.render = function () {
 Enemy.prototype.checkCollisions = function () {
     allEnemies.forEach(function (enemy) {
 
-        // checks the collision is in the center of the player
-        if (player.x > enemy.x && player.x < (enemy.x + 50.5)) {
+        // checks the collision is in the center of the player and at any part
+        // of the enemy's front or back
+        if ((player.x > enemy.x && player.x < (enemy.x + 50.5)) || (player.x < enemy.x && player.x > enemy.x - 50.5)) {
 
             // 18.5 is the difference between the player and enemy y-position
             if (player.y === enemy.y - 18.5) {
@@ -122,7 +123,7 @@ class Player {
 
 // Collectible Class
 class Star {
-    constructor(src) {
+    constructor() {
         this.xPos = [14, 115, 216, 317, 418],
         this.yPos = [110, 193, 276];
         this.x = this.xPos[Math.floor(Math.random() * 5)];
@@ -183,11 +184,11 @@ for(let char of characters) {
 charsArr.forEach(function (char) {
     char.addEventListener('click',function () {
         // Get the source of the image clicked
-        var src = char.attributes['src'].value;
+        var src = char.attributes.src.value;
         player.sprite = src;
         canvas.style.visibility = 'visible';
         startPage.style.visibility = 'hidden';
-    })
+    });
 });
 
 // Add new enemy every 400 milliseconds

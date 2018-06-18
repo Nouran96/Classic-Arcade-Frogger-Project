@@ -13,8 +13,9 @@ Do the following steps:
 After Choosing your character, The game starts.
 You use the keyboard arrows to move your character left, right, up or down.
 Your goal is to reach the water without colliding with the enemy bugs and obtain as many stars as you can.
-Every star gives you 10 points score and also reaching water gives you another 10 points.
+Every star gives you 10 points score and also reaching water gives you another 10 points but colliding with enemy takes 10 points from your score.
 After reaching the water or colliding with enemy the player position resets.
+To re-choose the character, just refresh the page. 
 
 ## _Built With_
 - HTML => Structure of the game and start page.
