@@ -111,13 +111,6 @@ function resetGame() {
 function newEnemies() {
     var enemy = new Enemy();
     allEnemies.push(enemy);
-    
-    // Remove enemies that go offscreen from array
-    allEnemies.forEach(function(enemy, index, array) {
-        if(enemy.x > 505){
-            allEnemies.splice(array[index], 1);
-        }
-    });
 }
 
 // Instantiate new player object
