@@ -158,6 +158,8 @@ var Engine = (function(global) {
         });
 
         player.render();
+
+        star.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -181,7 +183,8 @@ var Engine = (function(global) {
         'images/char-cat-girl.png',
         'images/char-horn-girl.png',
         'images/char-pink-girl.png',
-        'images/char-princess-girl.png'
+        'images/char-princess-girl.png',
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 

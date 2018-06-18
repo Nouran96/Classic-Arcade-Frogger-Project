@@ -52,6 +52,8 @@ class Player {
 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
+        // Adding score board at the top of canvas
         ctx.font = '30px sans-serif';
         ctx.fillStyle = 'white';
         ctx.fillText(`Score: ${this.score}`, 0, 100);
@@ -59,6 +61,7 @@ class Player {
 
     update() {
         this.render();
+        star.catchingStar();
     }
 
     handleInput(keyPressed) {
@@ -102,11 +105,11 @@ class Player {
         }
         this.update();
     }
-
+    // Increase Score by ten when reaching water
     increaseScore() {
         this.score += 10;
     }
-
+    // Reduce Score by ten when collision occurs and only if greater than 0
     reduceScore() {
         if(this.score === 0){
             this.score = 0;
@@ -114,6 +117,37 @@ class Player {
         else{
             this.score -= 10;
         }
+    }
+}
+
+// Collectible Class
+class Star {
+    constructor(src) {
+        this.xPos = [14, 115, 216, 317, 418],
+        this.yPos = [110, 193, 276];
+        this.x = this.xPos[Math.floor(Math.random() * 5)];
+        this.y = this.yPos[Math.floor(Math.random() * 3)];
+        this.sprite = 'images/Star.png';
+    }
+
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 70, 100);
+    }
+
+    catchingStar() {
+        // 14 and 68.5 is the difference between the x and y positions of 
+        // player and star
+        if (player.x === this.x - 14 && player.y === this.y - 68.5) {
+                player.increaseScore();
+                this.changePosition();
+        }
+    }
+
+    // After catching star change the position of the star randomly in the enemies area
+    changePosition() {
+        this.x = this.xPos[Math.floor(Math.random() * 5)];
+        this.y = this.yPos[Math.floor(Math.random() * 3)];
+        this.render();
     }
 }
 
@@ -138,7 +172,8 @@ var player = new Player(202, 373.5),
     // All images elements on start page
     characters = document.querySelectorAll('.characters img'),
     startPage = document.querySelector('.startPage'),
-    charsArr = [];
+    charsArr = [],
+    star = new Star();
 
 // Adding each character image to the array
 for(let char of characters) {
