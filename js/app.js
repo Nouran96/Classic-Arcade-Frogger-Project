@@ -34,6 +34,7 @@ Enemy.prototype.checkCollisions = function () {
 
             // 18.5 is the difference between the player and enemy y-position
             if (player.y === enemy.y - 18.5) {
+                player.reduceScore();
                 resetGame();
             }
         }
@@ -45,11 +46,15 @@ class Player {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.score = 0;
         this.sprite = 'images/char-boy.png';
     }
 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        ctx.font = '30px sans-serif';
+        ctx.fillStyle = 'white';
+        ctx.fillText(`Score: ${this.score}`, 0, 100);
     }
 
     update() {
@@ -78,6 +83,7 @@ class Player {
             case 'up':
             // Reset game if character reached water
                 if (this.y === 41.5) {
+                    this.increaseScore();
                     resetGame();
                     break;
                 }
@@ -95,6 +101,19 @@ class Player {
                 }
         }
         this.update();
+    }
+
+    increaseScore() {
+        this.score += 10;
+    }
+
+    reduceScore() {
+        if(this.score === 0){
+            this.score = 0;
+        }
+        else{
+            this.score -= 10;
+        }
     }
 }
 
