@@ -7,7 +7,7 @@ Do the following steps:
 2. Unzip it
 3. Open the index.html file in your browser
 4. Choose the character you want to play with
-5. Enjoy the game ( Check Goals section for how to win)
+5. Enjoy the game ( Check How to play section for how to win)
 
 ## _How to Play_
 After Choosing your character, The game starts.
