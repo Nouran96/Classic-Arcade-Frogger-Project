@@ -1,7 +1,5 @@
 // Enemies our player must avoid
 var Enemy = function () {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -19,6 +17,7 @@ Enemy.prototype.update = function (dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += this.speed;
+    checkCollisions();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -26,11 +25,7 @@ Enemy.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
-
+// Player class
 class Player {
     constructor(x, y) {
         this.x = x;
@@ -48,6 +43,7 @@ class Player {
 
     handleInput(keyPressed) {
         switch (keyPressed) {
+            // if statements to Prevent character going offscreen
             case 'left':
                 if (this.x === 0) {
                     break;
@@ -65,6 +61,7 @@ class Player {
                     break;
                 }
             case 'up':
+            // Reset game if character reached water
                 if (this.y === 41.5) {
                     resetGame();
                     break;
@@ -99,6 +96,29 @@ function resetGame() {
 function newEnemies() {
     var enemy = new Enemy();
     allEnemies.push(enemy);
+    
+    // Remove enemies that go offscreen from array
+    allEnemies.forEach(function(enemy, index, array) {
+        if(enemy.x > 505){
+            allEnemies.splice(array[index], 1);
+        }
+    });
+}
+
+// Function that checks collision between enemy and player
+function checkCollisions() {
+    allEnemies.forEach(function (enemy) {
+
+        // checks the collision is in the center of the player
+        if (player.x > enemy.x && player.x < (enemy.x + 50.5)) {
+
+            // 18.5 is the difference between the player and enemy y-position
+            if (player.y === enemy.y - 18.5) {
+                resetGame();
+            }
+        }
+    });
+
 }
 
 // Instantiate new player object
@@ -108,8 +128,6 @@ var allEnemies = [];
 
 // Add new enemy every second
 var timing = setInterval(newEnemies, 1000);
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
